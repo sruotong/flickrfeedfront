@@ -1,0 +1,51 @@
+<div id="flickrFeedsCard">
+  <div class="card">
+    <div class="card-title mb-1">Flickr feeds</div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-12">
+          <form (ngSubmit)="submitSearch()" #searchForm="ngForm">
+            <div class="form-group mb-0">
+              <div class="row">
+                <div class="col-xl-6 col-lg-8 col-md-8 col-sm-12 col-xs-12 mb-2">
+                  <label for="flickrFeeds mb-0">Tags (comma delimited)</label>
+                  <input type="text" class="form-control form-control-sm" id="flickrFeeds" [(ngModel)]="tagsSearch"
+                    name="flickrFeeds">
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-12 col-xs-12 mb-2">
+                  <button type="submit" class="btn btn-outline-info btn-block" id="search-button">Search</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="feeds.length!==0">
+    <div *ngFor="let feed of feeds" class="card">
+      <div class="card-title mb-1">
+        <p>{{feed.author}}<br><span class="time-date">{{feed.pubDate | StringToDate | date:"hh:ss, dd/MM/yyyy"}}</span>
+        </p>
+      </div>
+      <div class="card-body">
+        <img src={{feed.imageLink}} />
+        <div class="row mt-2">
+          <div class="col-10">
+            <p>Title: {{feed.title}}</p>
+          </div>
+          <div class="col-2 details-more-div">
+            <a href={{feed.link}} target="_blank" class="details-more-a">more</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="emptyList" id="no-found-card">
+    <div class="card">
+      <div class="card-title mb-1">No post found!</div>
+      <div class="card-body">
+        <p>Please try other tags.</p>
+      </div>
+    </div>
+  </div>
